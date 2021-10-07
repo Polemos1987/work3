@@ -1,0 +1,52 @@
+create table Collection(
+	id serial primary key,
+	name varchar(50) not null,
+	release integer not null
+);
+
+create table Albums(
+	id serial primary key,
+	name varchar(50) not null,
+	release integer not null
+);
+
+create table Composition(
+	id serial primary key,
+	name varchar(50) not null,
+	duration time not null,
+	albums_id integer references Albums(id)
+);
+
+create table Genre(
+	id serial primary key,
+	name varchar(50) not null unique
+);
+
+create table Artists(
+	id serial primary key,
+	name varchar(70) not null,
+	gener_id integer references Genre(id)
+);
+
+create table ArtisGenre(
+	artist_id integer references Artists(id),
+	genre_id integer references Genre(id),
+	constraint ag primary key (artist_id, genre_id)
+);
+
+create table CompositionCollection(
+	composition_id integer references Composition(id),
+	collection_id integer references Collection(id),
+	constraint cc primary key (composition_id, collection_id)
+);
+
+create table ArtistsAlbums(
+	artist_id integer references Artists(id),
+	albums_id integer references Albums(id),
+	constraint aa primary key (artist_id, albums_id)
+);
+	
+
+	
+	
+	
